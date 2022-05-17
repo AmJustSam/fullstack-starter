@@ -9,12 +9,17 @@ const getPosts = async (req, res) => {
 
 const createPost = async (req, res) => {
   const { title, description } = req.body;
-  const response = await Post.createPost({
-    title: title,
-    description: description,
-  });
 
-  res.json(response);
+  try {
+    const response = await Post.createPost({
+      title: title,
+      description: description,
+    });
+
+    res.json(response);
+  } catch (err) {
+    res.json({ err: "Something went wrong" });
+  }
 };
 
 export { getPosts, createPost };
